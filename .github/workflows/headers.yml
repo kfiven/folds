@@ -22,10 +22,10 @@ jobs:
           PROJECT: "Cinny Project"
           CR_YEAR: "2021-present"
           CR_HOLDER: "Ajay Bura"
-          SPDX_LICENSE: "Apache License, Version 2.0"
+          SPDX_LICENSE: "Apache-2.0"
           LINK: "https://cinny.in"
           TEXT: |
-            "Licensed under the Apache License, Version 2.0 (the "License");
+            Licensed under the Apache License, Version 2.0 (the "License");
             you may not use this file except in compliance with the License.
             You may obtain a copy of the License at
             
@@ -35,7 +35,7 @@ jobs:
             distributed under the License is distributed on an "AS IS" BASIS,
             WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
             See the License for the specific language governing permissions and
-            limitations under the License."
+            limitations under the License.
         run: |
           python3 <<'PY'
           import os
@@ -47,7 +47,7 @@ jobs:
           holder = os.environ["CR_HOLDER"]
           license_id = os.environ["SPDX_LICENSE"]
           link = os.environ["LINK"]
-          text = os.environ["TEXT"]
+          license_text = os.environ["TEXT"]
       
           excluded_prefixes = (
               ".github/",
@@ -64,7 +64,7 @@ jobs:
                   f"SPDX-License-Identifier: {license_id}\n"
                   f"{link}\n"
                   "\n"
-                  f"{text}\n"
+                  f"{license_text}\n"
                   "*/\n"
                   "\n"
               )
