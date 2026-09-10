@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
 
@@ -22,8 +22,20 @@ jobs:
           PROJECT: "Cinny Project"
           CR_YEAR: "2021-present"
           CR_HOLDER: "Ajay Bura"
-          SPDX_LICENSE: "AGPL-3.0-only"
+          SPDX_LICENSE: "Apache License, Version 2.0"
           LINK: "https://cinny.in"
+          TEXT: |
+            "Licensed under the Apache License, Version 2.0 (the "License");
+            you may not use this file except in compliance with the License.
+            You may obtain a copy of the License at
+            
+                http://www.apache.org/licenses/LICENSE-2.0
+            
+            Unless required by applicable law or agreed to in writing, software
+            distributed under the License is distributed on an "AS IS" BASIS,
+            WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+            See the License for the specific language governing permissions and
+            limitations under the License."
         run: |
           python3 <<'PY'
           import os
@@ -35,6 +47,7 @@ jobs:
           holder = os.environ["CR_HOLDER"]
           license_id = os.environ["SPDX_LICENSE"]
           link = os.environ["LINK"]
+          text = os.environ["TEXT"]
       
           excluded_prefixes = (
               ".github/",
@@ -51,7 +64,7 @@ jobs:
                   f"SPDX-License-Identifier: {license_id}\n"
                   f"{link}\n"
                   "\n"
-                  "Please see LICENSE files in the repository root for full details.\n"
+                  f"{text}\n"
                   "*/\n"
                   "\n"
               )
@@ -91,7 +104,7 @@ jobs:
           PY
 
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "chore: add SPDX headers"
